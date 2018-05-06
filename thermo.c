@@ -28,31 +28,31 @@ int main(int argc, char *argv[]) {
 }
 
 unsigned Redscale(unsigned gray) {
-  if (gray <= 255 * 2/4) {
+  if (gray <= 128) {
     return 0;
-  } else if (gray > 255 * 2/4 && gray <= 255 * 3/4) {
-    return 4 * (gray - 255 * 2/4);
-  } else if (gray > 255 * 3/4) {
+  } else if (gray > 128 && gray <= 192) {
+    return 4 * (gray - 128);
+  } else if (gray > 192) {
     return 255;
   }
 }
 
 unsigned Greenscale(unsigned gray) {
-  if (gray <= 255 * 1/4) {
+  if (gray <= 64) {
     return 4 * gray;
-  } else if (gray > 255 * 1/4 && gray <= 255 * 3/4) {
+  } else if (gray > 64 && gray <= 192) {
     return 255;
-  } else if (gray > 255 * 3/4) {
-    return 255 - 4 * (gray - 255 * 3/4);
+  } else if (gray > 192) {
+    return 255 - 4 * (gray - 192);
   }
 }
 
 unsigned Bluescale(unsigned gray) {
-  if (gray <= 255 * 1/4) {
+  if (gray <= 64) {
     return 255;
-  } else if (gray > 255 * 1/4 && gray <= 255 * 3/4) {
-    return 255 - 4 * (gray - 255 * 1/4);
-  } else if (gray > 255 * 3/4) {
+  } else if (gray > 64 && gray <= 192) {
+    return 255 - 4 * (gray - 64);
+  } else if (gray > 192) {
     return 0;
   }
 }
