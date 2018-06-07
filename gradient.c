@@ -1,47 +1,10 @@
 #include <math.h>
 #include <stdio.h>
-#include <stdio.h>
-#include "bitmap.h"
+#include "gradient.h"
 
 Rgb getRgb(Image *img, int i, int j);
-void Sobel(Image *img, double *tmpMap);
 
-int main(int argc, char *argv[])
-{
-    if (argc != 3)
-    {
-        fprintf(stderr, "Usage: program <inputfile> <outputfile>\n");
-        exit(1);
-    }
-
-    Image *colorimg;
-    double *tmpMap;
-
-    if ((colorimg = Read_Bmp(argv[1])) == NULL)
-    {
-        exit(1);
-    }
-
-    if ((tmpMap = (double *)malloc(sizeof(double) * colorimg->height * colorimg->width)) == NULL)
-    {
-        fprintf(stderr, "Allocation error\n");
-        exit(1);
-    }
-
-    Sobel(colorimg, tmpMap);
-
-    if (Write_Bmp(argv[2], colorimg))
-    {
-        exit(1);
-    }
-
-    free(tmpMap);
-    Free_Image(colorimg);
-
-    return 0;
-}
-
-void Sobel(Image *img, double *tmpMap)
+void Gradient(Image *img, double *tmpMap)
 {
     char filterH[9] = {-1, 0, 1,
                        -2, 0, 2,
