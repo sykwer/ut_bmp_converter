@@ -1,6 +1,6 @@
-CC := gcc
+CC := gcc -g
 
-all: gray thermo posterize
+all: gray thermo posterize gradient
 
 gray: gray.o bitmap.o
 
@@ -8,5 +8,7 @@ thermo: thermo.o bitmap.o
 
 posterize: posterize.o bitmap.o
 
+gradient: gradient.o bitmap.o
+
 clean:
-	$(RM) *.o gray thermo posterize
+	$(RM) *.o gray thermo posterize gradient

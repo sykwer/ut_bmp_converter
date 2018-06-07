@@ -29,7 +29,7 @@ Image *Read_Bmp(char *filename) {
     if (color != 24) {
         fprintf(stderr, "Error: %s is not bitmap file.", filename);
         return NULL;
-    }G
+    }
 
     int real_width = width * 3 + width % 4;
     unsigned char *bmp_line_data;
@@ -170,4 +170,3 @@ void Free_Image(Image *img) {
     free(img->data);
     free(img);
 }
-
