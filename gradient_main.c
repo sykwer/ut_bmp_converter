@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
     }
 
     if ((tmpMap = (double *) malloc(sizeof(double) * colorimg->height * colorimg->width)) == NULL) {
-        fprintf(stderr, "Allocation error\n");
+        fprintf(stderr, "Memory allocation error\n");
         exit(1);
     }
 

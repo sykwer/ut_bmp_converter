@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
 }
 
 unsigned char threshold(unsigned char v) {
-    if (v < 50)
+    if (v < 15)
         return 0;
     else
         return 255;
