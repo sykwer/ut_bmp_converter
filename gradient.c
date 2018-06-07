@@ -4,8 +4,7 @@
 
 Rgb getRgb(Image *img, int i, int j);
 
-void Gradient(Image *img, double *tmpMap)
-{
+void Gradient(Image *img, double *tmpMap) {
     char filterH[9] = {-1, 0, 1,
                        -2, 0, 2,
                        -1, 0, 1};
@@ -19,15 +18,11 @@ void Gradient(Image *img, double *tmpMap)
 
     double sumHR, sumHG, sumHB, sumVR, sumVG, sumVB, min, max = 0;
 
-    for (i = 0; i < img->height; i++)
-    {
-        for (j = 0; j < img->width; j++)
-        {
+    for (i = 0; i < img->height; i++) {
+        for (j = 0; j < img->width; j++) {
             sumHR = sumHG = sumHB = sumVR = sumVG = sumVB = 0;
-            for (k = 0; k < 3; k++)
-            {
-                for (l = 0; l < 3; l++)
-                {
+            for (k = 0; k < 3; k++) {
+                for (l = 0; l < 3; l++) {
                     m = k * 3 + l;
                     tmpRgb = getRgb(img, i + k - 1, j + l - 1);
                     sumHR += filterH[m] * tmpRgb.r;
@@ -39,33 +34,28 @@ void Gradient(Image *img, double *tmpMap)
                 }
             }
             index = img->width * i + j;
-            tmpMap[index] = (sqrt(pow(sumHR, 2) + pow(sumVR, 2)) + sqrt(pow(sumHG, 2) + pow(sumVG, 2)) + sqrt(pow(sumHB, 2) + pow(sumVB, 2)));
-            if (tmpMap[index] > max)
-            {
+            tmpMap[index] = (sqrt(pow(sumHR, 2) + pow(sumVR, 2)) + sqrt(pow(sumHG, 2) + pow(sumVG, 2)) +
+                             sqrt(pow(sumHB, 2) + pow(sumVB, 2)));
+            if (tmpMap[index] > max) {
                 max = tmpMap[index];
             }
-            if (tmpMap[index] < min)
-            {
+            if (tmpMap[index] < min) {
                 min = tmpMap[index];
             }
         }
     }
 
-    for (i = 0; i < img->height; i++)
-    {
-        for (j = 0; j < img->width; j++)
-        {
+    for (i = 0; i < img->height; i++) {
+        for (j = 0; j < img->width; j++) {
             index = img->width * i + j;
             img->data[index].r = img->data[index].g = img->data[index].b = (tmpMap[index] - min) * 255 / (max - min);
         }
     }
 }
 
-Rgb getRgb(Image *img, int i, int j)
-{
+Rgb getRgb(Image *img, int i, int j) {
     Rgb result = {0, 0, 0};
-    if (i < 0 || i >= img->height || j < 0 || j >= img->width)
-    {
+    if (i < 0 || i >= img->height || j < 0 || j >= img->width) {
         return result;
     }
     return img->data[i * img->width + j];

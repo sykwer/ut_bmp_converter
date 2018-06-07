@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+void Binarize(Image *img);
+
 int main(int argc, char *argv[]) {
     if (argc != 3) {
         fprintf(stderr, "Usage: program <inputfile> <outputfile>\n");
@@ -22,6 +24,7 @@ int main(int argc, char *argv[]) {
     }
 
     Gradient(colorimg, tmpMap);
+    Binarize(colorimg);
 
     if (Write_Bmp(argv[2], colorimg)) {
         exit(1);
@@ -31,4 +34,25 @@ int main(int argc, char *argv[]) {
     Free_Image(colorimg);
 
     return 0;
+}
+
+unsigned char threshold(unsigned char v) {
+    if (v < 50)
+        return 0;
+    else
+        return 255;
+}
+
+void Binarize(Image *img) {
+    int i, j;
+    unsigned int index;
+    unsigned char gray;
+
+    for (i = 0; i < img->height; i++) {
+        for (j = 0; j < img->width; j++) {
+            index = img->width * i + j;
+            gray = img->data[index].r * 0.299 + img->data[index].g * 0.587 + img->data[index].b * 0.114;
+            img->data[index].r = img->data[index].g = img->data[index].b = threshold(gray);
+        }
+    }
 }

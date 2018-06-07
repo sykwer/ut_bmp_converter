@@ -1,6 +1,6 @@
 CC := gcc -g
 
-all: gray thermo posterize gradient
+all: gray thermo posterize gradient gradient_binary
 
 gray: gray.o bitmap.o
 
@@ -10,5 +10,7 @@ posterize: posterize.o bitmap.o
 
 gradient: gradient_main.o bitmap.o
 
+gradient_binary: gradient_binary.o gradient.o bitmap.o
+
 clean:
-	$(RM) *.o gray thermo posterize gradient
+	$(RM) *.o gray thermo posterize gradient gradient_binary
